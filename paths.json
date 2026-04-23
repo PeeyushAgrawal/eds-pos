@@ -1,8 +1,5 @@
 {
   "mappings": [
     "/content/eds-pos/:/"
-  ],
-  "includes": [
-    "/content/eds-pos/"
   ]
 }
