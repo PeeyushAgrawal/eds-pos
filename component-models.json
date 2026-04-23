@@ -214,5 +214,17 @@
         "valueType": "string"
       }
     ]
+  },
+  {
+  "id": "plist",
+  "fields": [
+     {
+       "component": "text",
+       "valueType": "string",
+       "name": "heading",
+       "label": "Heading",
+       "value": ""
+     }
+   ]
   }
 ]
