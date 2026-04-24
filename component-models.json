@@ -157,7 +157,22 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
-      }
+      },
+      {
+          "component": "multiselect",
+          "name": "style",
+          "label": "Style",
+          "options": [
+            {
+              "name": "Classic",
+              "value": "classic"
+            },
+            {
+              "name": "Primary",
+              "value": "primary"
+            }
+          ]
+        }
     ]
   },
   {
