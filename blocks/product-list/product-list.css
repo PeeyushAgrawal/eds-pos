@@ -2,14 +2,17 @@
   --primary-color: #333;
   --primary-text-color: #fff;
 }
+
 .product-list .light {
   --primary-color: #fff;
   --primary-text-color: #333;
 }
+
 .product-list p{
   background-color: var(--primary-color);
   color: var(--primary-text-color);
 }
+
 .product-list {
   display: flex;
   flex-wrap: wrap;
