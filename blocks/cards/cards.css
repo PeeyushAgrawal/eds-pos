@@ -16,6 +16,16 @@
   margin: 16px;
 }
 
+.cards.classic .cards-card-body {
+  background-color: var(--text-color);
+  color: var(--light-color);
+}
+
+.cards.primary .cards-card-body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
 .cards .cards-card-image {
   line-height: 0;
 }
