@@ -23,7 +23,7 @@ async function initProductListComponents() {
     const { apivalue } = div.dataset;
     // Extract data attributes from the div
     const fetchAndDisplayProducts = async () => {
-      const resp = await fetch(apivalue);
+      const resp = await fetch('https://author-p34054-e124155.adobeaemcloud.com/content/aem-eds/product-sheet.hlx.json');
       const jsono = await resp.json();
       createProductList(jsono.data);
     };
