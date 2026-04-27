@@ -159,20 +159,16 @@
         "valueType": "string"
       },
       {
-          "component": "multiselect",
-          "name": "style",
-          "label": "Style",
-          "options": [
-            {
-              "name": "Classic",
-              "value": "classic"
-            },
-            {
-              "name": "Primary",
-              "value": "primary"
-            }
-          ]
-        }
+        "component": "select",
+        "name": "classes",
+        "label": "Layout",
+        "value": "",
+        "valueType": "string",
+        "options": [
+          { "name": "Default", "value": "" },
+          { "name": "Compact", "value": "compact" }
+        ]
+      }
     ]
   },
   {
