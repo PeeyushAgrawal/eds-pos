@@ -159,7 +159,7 @@
         },
         {
           "title": "Product-list",
-          "id": "plist",
+          "id": "product-list",
           "plugins": {
             "xwalk": {
               "page": {
