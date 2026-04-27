@@ -14,7 +14,7 @@
   margin: -10px;
 }
 
-.product-list >div {
+.product-list > div:first-child {
   flex: 1 100%;
 }
 
