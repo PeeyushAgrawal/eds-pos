@@ -11,7 +11,7 @@
 .product-list {
   display: flex;
   flex-wrap: wrap;
-  margin: -10px;
+  gap: 20px;
 }
 
 .product-list > div:first-child {
@@ -19,7 +19,6 @@
 }
 
 .product-item {
-  margin: 10px;
   padding: 10px;
   box-sizing: border-box;
   flex: 1 0 100%;
@@ -76,8 +75,13 @@
 }
 
 @media (width >= 768px) {
-  .product-item {
+  .product-item.three-column {
     flex: 1 0 30%;
+  }
+}
+@media (width >= 768px) {
+  .product-item.four-column {
+    flex: 1 0 25%;
   }
 }
 
