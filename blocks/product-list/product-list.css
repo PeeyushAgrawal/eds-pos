@@ -75,13 +75,13 @@
 }
 
 @media (width >= 768px) {
-  .product-item.three-column {
+  .three-column.product-list .product-item {
     flex: 1 0 30%;
   }
 }
 
 @media (width >= 768px) {
-  .product-item.four-column {
+  .four-column.product-list .product-item {
     flex: 1 0 25%;
   }
 }
