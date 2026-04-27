@@ -19,6 +19,32 @@ async function initProductListComponents() {
                       `;
       });
       div.querySelector('.product-list').innerHTML += productListHTML;
+      // If slider, add carousel controls
+      if (productList.classList.contains('slider')) {
+        // Create Prev/Next buttons
+        const prevBtn = document.createElement('button');
+        prevBtn.className = 'carousel-btn prev-btn';
+        prevBtn.setAttribute('aria-label', 'Scroll left');
+        prevBtn.innerHTML = '←';
+
+        const nextBtn = document.createElement('button');
+        nextBtn.className = 'carousel-btn next-btn';
+        nextBtn.setAttribute('aria-label', 'Scroll right');
+        nextBtn.innerHTML = '→';
+
+        // Insert buttons before and after the product list
+        productList.parentNode.insertBefore(prevBtn, productList);
+        productList.parentNode.insertBefore(nextBtn, productList.nextSibling);
+
+        // Scroll logic
+        const scrollAmount = 300;
+        prevBtn.addEventListener('click', () => {
+          productList.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+        nextBtn.addEventListener('click', () => {
+          productList.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+      }
     }
     // const { apivalue } = div.dataset;
     // Extract data attributes from the div
