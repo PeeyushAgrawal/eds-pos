@@ -16,13 +16,13 @@
           "label": "Style",
           "options": [
             {
-              "name": "Dark",
-              "value": "dark"
-            },
-            {
-              "name": "Light",
-              "value": "light"
-            }
+            "name": "Product Dark",
+            "value": "p-dark"
+          },
+          {
+            "name": "Product Light",
+            "value": "p-light"
+          }
           ]
         }
       ]
