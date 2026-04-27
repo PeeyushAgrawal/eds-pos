@@ -231,7 +231,7 @@
     ]
   },
   {
-  "id": "plist",
+  "id": "product-list",
   "fields": [
      {
        "component": "text",
