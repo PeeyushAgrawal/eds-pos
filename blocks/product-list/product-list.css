@@ -92,3 +92,32 @@
   outline: 2px solid var(--primary-color, #000);
   outline-offset: 2px;
 }
+
+.product-list.slider {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 16px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color, #000) var(--background-color, #fff);
+}
+
+.product-list.slider .product-item {
+  flex: 0 0 auto;
+  min-width: 250px;
+  max-width: 350px;
+  scroll-snap-align: start;
+}
+
+.product-list.slider::-webkit-scrollbar {
+  height: 8px;
+}
+.product-list.slider::-webkit-scrollbar-thumb {
+  background: var(--primary-color, #000);
+  border-radius: 4px;
+}
+.product-list.slider::-webkit-scrollbar-track {
+  background: var(--background-color, #fff);
+}
