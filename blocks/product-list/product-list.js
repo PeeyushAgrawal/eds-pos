@@ -10,7 +10,7 @@
 //       products.forEach((product) => {
 //         productListHTML += `
 //                           <div class="product-item">
-//                              <a href="${`plp?product=${product.name}`}" 
+//                              <a href="${`plp?product=${product.name}`}"
 // aria-label="View details for ${product.name}">
 //                               <img src="${'https://placehold.jp/400x400.png'}" alt="${product.altText}">
 //                                <h2>${product.name}</h2>
