@@ -157,17 +157,6 @@
         "value": "",
         "label": "Text",
         "valueType": "string"
-      },
-      {
-        "component": "select",
-        "name": "classes",
-        "label": "Layout",
-        "value": "",
-        "valueType": "string",
-        "options": [
-          { "name": "Default", "value": "" },
-          { "name": "Compact", "value": "compact" }
-        ]
       }
     ]
   },
