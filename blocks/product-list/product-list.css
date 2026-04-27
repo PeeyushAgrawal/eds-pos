@@ -21,7 +21,7 @@
 .product-item {
   padding: 10px;
   box-sizing: border-box;
-  flex: 1 0 100%;
+  /* flex: 1 0 100%; */
   border: 1px solid black;
 }
 
