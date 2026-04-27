@@ -33,6 +33,24 @@
   ],
   "models": [
     {
+      "id": "cards",
+      "fields": [
+        {
+          "component": "select",
+          "name": "classes",
+          "value": "",
+          "label": "Layout Style",
+          "valueType": "string",
+          "options": [
+            { "name": "Default", "value": "" },
+            { "name": "Compact", "value": "compact" },
+            { "name": "Dark", "value": "dark" },
+            { "name": "Two Columns", "value": "two-cols" }
+          ]
+        }
+      ]
+    },
+    {
       "id": "card",
       "fields": [
         {
@@ -48,19 +66,6 @@
           "value": "",
           "label": "Text",
           "valueType": "string"
-        },
-        {
-          "component": "select",
-          "name": "classes",
-          "label": "Layout",
-          "value": "",
-          "valueType": "string",
-          "options": [
-            { "name": "Default", "value": "" },
-            { "name": "Compact", "value": "compact" },
-            { "name": "Dark", "value": "dark" },
-            { "name": "Two Columns", "value": "two-cols" }
-          ]
         }
       ]
     }
@@ -68,9 +73,7 @@
   "filters": [
     {
       "id": "cards",
-      "components": [
-        "card"
-      ]
+      "components": ["card"]
     }
   ]
 }

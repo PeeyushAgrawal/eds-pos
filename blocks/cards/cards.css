@@ -36,15 +36,15 @@
   object-fit: cover;
 }
 
-.cards.compact ul {
+.block.cards.compact ul {
   gap: 12px;
 }
 
-.cards.two-cols ul {
+.block.cards.two-cols ul {
   grid-template-columns: repeat(2, 1fr);
 }
 
-.cards.dark {
+.block.cards.dark {
   background: #111;
   color: #fff;
 }
