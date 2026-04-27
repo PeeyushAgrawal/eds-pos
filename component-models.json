@@ -226,18 +226,15 @@
         "value": ""
       },
       {
-        "component": "multiselect",
-        "name": "style",
-        "label": "Style",
+        "component": "select",
+        "name": "classes",
+        "label": "Layout Style",
+        "valueType": "string",
         "options": [
-          {
-            "name": "Dark",
-            "value": "dark"
-          },
-          {
-            "name": "Light",
-            "value": "light"
-          }
+          { "name": "Default", "value": "" },
+          { "name": "Slider", "value": "slider" },
+          { "name": "3 column", "value": "three-column" },
+          { "name": "4 column", "value": "four-column" }
         ]
       }
     ]
