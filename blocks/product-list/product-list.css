@@ -12,6 +12,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 2%;
+  row-gap: 2%;
 }
 
 .product-list > div:first-child {
