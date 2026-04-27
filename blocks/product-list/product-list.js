@@ -19,6 +19,7 @@ async function initProductListComponents() {
                       `;
       });
       div.querySelector('.product-list').innerHTML += productListHTML;
+      const productList = div.querySelector('.product-list');
       // If slider, add carousel controls
       if (productList.classList.contains('slider')) {
         // Create Prev/Next buttons
