@@ -250,12 +250,12 @@
         "label": "Style",
         "options": [
           {
-            "name": "Dark",
-            "value": "dark"
+            "name": "Product Dark",
+            "value": "p-dark"
           },
           {
-            "name": "Light",
-            "value": "light"
+            "name": "Product Light",
+            "value": "p-light"
           }
         ]
       }
