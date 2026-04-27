@@ -76,13 +76,13 @@
 
 @media (width >= 768px) {
   .three-column.product-list .product-item {
-    flex: 1 0 calc((100% - 2%) / 3);
+    flex: 1 0 calc((100% - 4%) / 3);
   }
 }
 
 @media (width >= 768px) {
   .four-column.product-list .product-item {
-    flex: 1 0 calc((100% - 2%) / 4);
+    flex: 1 0 calc((100% - 6%) / 4);
   }
 }
 
