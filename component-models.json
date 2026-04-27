@@ -216,16 +216,16 @@
     ]
   },
   {
-  "id": "plist",
-  "fields": [
-     {
-       "component": "text",
-       "valueType": "string",
-       "name": "heading",
-       "label": "Heading",
-       "value": ""
-     },
-     {
+    "id": "plist",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
         "component": "multiselect",
         "name": "style",
         "label": "Style",
@@ -240,6 +240,22 @@
           }
         ]
       }
-   ]
+    ]
+  },
+  {
+    "id": "cards",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Layout Style",
+        "valueType": "string",
+        "options": [
+          { "name": "Default", "value": "" },
+          { "name": "Compact", "value": "compact" }
+        ]
+      }
+    ]
   }
 ]
