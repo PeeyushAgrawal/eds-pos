@@ -1,7 +1,7 @@
 {
   "models": [
     {
-      "id": "product-list",
+      "id": "plist",
       "fields": [
         {
           "component": "text",
@@ -16,13 +16,13 @@
           "label": "Style",
           "options": [
             {
-            "name": "Product Dark",
-            "value": "p-dark"
-          },
-          {
-            "name": "Product Light",
-            "value": "p-light"
-          }
+              "name": "Dark",
+              "value": "dark"
+            },
+            {
+              "name": "Light",
+              "value": "light"
+            }
           ]
         }
       ]
