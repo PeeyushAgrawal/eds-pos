@@ -114,10 +114,12 @@
 .product-list.slider::-webkit-scrollbar {
   height: 8px;
 }
+
 .product-list.slider::-webkit-scrollbar-thumb {
   background: var(--primary-color, #000);
   border-radius: 4px;
 }
+
 .product-list.slider::-webkit-scrollbar-track {
   background: var(--background-color, #fff);
 }
