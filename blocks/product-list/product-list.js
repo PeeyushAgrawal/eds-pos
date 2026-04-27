@@ -27,7 +27,7 @@ async function initProductListComponents() {
       const jsono = await resp.json();
       createProductList(jsono.data);
     };
-    fetchAndDisplayProducts();
+    // fetchAndDisplayProducts();
   });
 }
 initProductListComponents();
