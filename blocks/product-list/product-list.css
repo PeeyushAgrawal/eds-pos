@@ -11,7 +11,7 @@
 .product-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 2%;
 }
 
 .product-list > div:first-child {
@@ -76,13 +76,13 @@
 
 @media (width >= 768px) {
   .three-column.product-list .product-item {
-    flex: 1 0 30%;
+    flex: 1 0 calc(100-2%/3);
   }
 }
 
 @media (width >= 768px) {
   .four-column.product-list .product-item {
-    flex: 1 0 25%;
+    flex: 1 0 calc(100-2%/4);
   }
 }
 
