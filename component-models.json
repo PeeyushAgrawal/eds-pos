@@ -227,7 +227,7 @@
       },
       {
         "component": "select",
-        "name": "classes",
+        "name": "layout",
         "label": "Layout Style",
         "valueType": "string",
         "options": [
