@@ -138,6 +138,13 @@
             "value": "highlight"
           }
         ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "apivalue",
+        "label": "Apivalue",
+        "value": ""
       }
     ]
   },
