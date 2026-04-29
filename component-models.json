@@ -234,7 +234,7 @@
       },
       {
         "component": "select",
-        "name": "layout",
+        "name": "classes",
         "label": "Layout Style",
         "valueType": "string",
         "options": [
@@ -243,12 +243,6 @@
           { "name": "3 column", "value": "three-column" },
           { "name": "4 column", "value": "four-column" }
         ]
-      },
-      {
-        "component": "text",
-        "name": "text",
-        "label": "Simple Text",
-        "valueType": "string"
       }
     ]
   },
