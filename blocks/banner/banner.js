@@ -35,7 +35,9 @@ export default function decorate(block) {
   }
 
   // Process text content
-  const textElements = [...bannerContent.children].filter((el) => el !== picture);
+  const textElements = [...bannerContent.children].filter(
+    (el) => el !== picture,
+  );
   if (textElements.length > 0) {
     const textWrapper = document.createElement('div');
     textWrapper.className = 'banner-text';
@@ -68,14 +70,17 @@ export default function decorate(block) {
   block.replaceChildren(banner);
 
   // Add intersection observer for animation
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('banner-visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.1 });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('banner-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 },
+  );
 
   observer.observe(block);
 }
