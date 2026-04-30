@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "https://author-p34054-e124155.adobeaemcloud.com/bin/franklin.delivery/PeeyushAgrawal/eds-pos/main"
+    url: "https://author-p34054-e124155.adobeaemcloud.com/content/aem-eds"
     type: "markup"
     suffix: ".html"
