@@ -243,13 +243,6 @@
           { "name": "3 column", "value": "three-column" },
           { "name": "4 column", "value": "four-column" }
         ]
-      },
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "headingt",
-        "label": "Heading",
-        "value": ""
       }
     ]
   },
