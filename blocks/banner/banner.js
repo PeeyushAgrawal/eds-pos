@@ -22,12 +22,12 @@ export default function decorate(block) {
         img.src,
         img.alt || 'Banner image',
         false,
-        [{ width: '1200' }, { width: '768' }]
+        [{ width: '1200' }, { width: '768' }],
       );
       moveInstrumentation(img, optimizedPic.querySelector('img'));
       picture.replaceWith(optimizedPic);
     }
-    
+
     const imageWrapper = document.createElement('div');
     imageWrapper.className = 'banner-image';
     imageWrapper.appendChild(picture);
@@ -35,26 +35,26 @@ export default function decorate(block) {
   }
 
   // Process text content
-  const textElements = [...bannerContent.children].filter(el => el !== picture);
+  const textElements = [...bannerContent.children].filter((el) => el !== picture);
   if (textElements.length > 0) {
     const textWrapper = document.createElement('div');
     textWrapper.className = 'banner-text';
-    
-    textElements.forEach(el => {
+
+    textElements.forEach((el) => {
       moveInstrumentation(el, el);
       textWrapper.appendChild(el);
     });
-    
+
     banner.appendChild(textWrapper);
   }
 
   // Add CTA button styling
   const buttons = banner.querySelectorAll('a');
-  buttons.forEach(button => {
+  buttons.forEach((button) => {
     if (button.textContent.trim()) {
       button.className = 'banner-cta';
       button.setAttribute('role', 'button');
-      
+
       // Add keyboard accessibility
       button.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -69,7 +69,7 @@ export default function decorate(block) {
 
   // Add intersection observer for animation
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('banner-visible');
         observer.unobserve(entry.target);
