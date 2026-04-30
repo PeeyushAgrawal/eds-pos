@@ -138,13 +138,104 @@
             "value": "highlight"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "banner",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Background Image",
+        "multi": false
       },
       {
         "component": "text",
         "valueType": "string",
-        "name": "apivalue",
-        "label": "Apivalue",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
         "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "title",
+        "value": "",
+        "label": "Title",
+        "valueType": "string"
+      },
+      {
+        "component": "richtext",
+        "name": "description",
+        "value": "",
+        "label": "Description",
+        "valueType": "string"
+      },
+      {
+        "component": "aem-content",
+        "name": "ctaLink",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "name": "ctaText",
+        "label": "CTA Text",
+        "value": "Learn More"
+      },
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Banner Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Overlay",
+            "value": "overlay"
+          },
+          {
+            "name": "Compact",
+            "value": "compact"
+          },
+          {
+            "name": "Reverse Layout",
+            "value": "reverse"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cards",
+    "fields": [
+      {
+        "component": "select",
+        "name": "classes",
+        "value": "",
+        "label": "Layout Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Default",
+            "value": ""
+          },
+          {
+            "name": "Compact",
+            "value": "compact"
+          },
+          {
+            "name": "Dark",
+            "value": "dark"
+          },
+          {
+            "name": "Two Columns",
+            "value": "two-cols"
+          }
+        ]
       }
     ]
   },
@@ -223,42 +314,75 @@
     ]
   },
   {
-    "id": "plist",
+    "id": "testimonial",
     "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "heading",
-        "label": "Heading",
-        "value": ""
-      },
       {
         "component": "select",
         "name": "classes",
         "label": "Layout Style",
         "valueType": "string",
         "options": [
-          { "name": "Default", "value": "" },
-          { "name": "Slider", "value": "slider" },
-          { "name": "3 column", "value": "three-column" },
-          { "name": "4 column", "value": "four-column" }
+          {
+            "name": "Default (Carousel)",
+            "value": ""
+          },
+          {
+            "name": "Grid Layout",
+            "value": "grid"
+          },
+          {
+            "name": "Compact",
+            "value": "compact"
+          },
+          {
+            "name": "Dark Theme",
+            "value": "dark"
+          }
         ]
       }
     ]
   },
   {
-    "id": "cards",
+    "id": "testimonial-item",
     "fields": [
       {
-        "component": "select",
-        "name": "classes",
-        "value": "",
-        "label": "Layout Style",
+        "component": "reference",
         "valueType": "string",
-        "options": [
-          { "name": "Default", "value": "" },
-          { "name": "Compact", "value": "compact" }
-        ]
+        "name": "avatar",
+        "label": "Avatar Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "avatarAlt",
+        "label": "Avatar Alt Text",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "quote",
+        "value": "",
+        "label": "Testimonial Quote",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "author",
+        "label": "Author Name",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "company",
+        "label": "Company/Organization",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "role",
+        "label": "Job Title/Role",
+        "valueType": "string"
       }
     ]
   }
