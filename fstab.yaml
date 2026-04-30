@@ -1,3 +1,2 @@
 mountpoints:
-  /:
-    url: "https://author-p34054-e124155.adobeaemcloud.com/content/aem-eds"
+  /: "https://author-p34054-e124155.adobeaemcloud.com/content/aem-eds"
