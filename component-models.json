@@ -164,48 +164,6 @@
         "value": "",
         "label": "Title",
         "valueType": "string"
-      },
-      {
-        "component": "richtext",
-        "name": "description",
-        "value": "",
-        "label": "Description",
-        "valueType": "string"
-      },
-      {
-        "component": "aem-content",
-        "name": "ctaLink",
-        "label": "CTA Link"
-      },
-      {
-        "component": "text",
-        "name": "ctaText",
-        "label": "CTA Text",
-        "value": "Learn More"
-      },
-      {
-        "component": "select",
-        "name": "classes",
-        "label": "Banner Style",
-        "valueType": "string",
-        "options": [
-          {
-            "name": "Default",
-            "value": ""
-          },
-          {
-            "name": "Overlay",
-            "value": "overlay"
-          },
-          {
-            "name": "Compact",
-            "value": "compact"
-          },
-          {
-            "name": "Reverse Layout",
-            "value": "reverse"
-          }
-        ]
       }
     ]
   },
@@ -388,24 +346,6 @@
         "name": "quote",
         "value": "",
         "label": "Testimonial Quote",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "author",
-        "label": "Author Name",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "company",
-        "label": "Company/Organization",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "role",
-        "label": "Job Title/Role",
         "valueType": "string"
       }
     ]
