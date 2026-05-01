@@ -314,6 +314,30 @@
     ]
   },
   {
+    "id": "product-list",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "heading",
+        "label": "Heading",
+        "value": ""
+      },
+      {
+        "component": "select",
+        "name": "classes",
+        "label": "Layout Style",
+        "valueType": "string",
+        "options": [
+          { "name": "Default", "value": "" },
+          { "name": "Slider", "value": "slider" },
+          { "name": "3 column", "value": "three-column" },
+          { "name": "4 column", "value": "four-column" }
+        ]
+      }
+    ]
+  },
+  {
     "id": "testimonial",
     "fields": [
       {

@@ -44,11 +44,10 @@ async function initProductListComponents() {
       // Initialize carousel after products are rendered
       initializeCarousel(div);
     }
-
-    // const { apivalue } = div.dataset;
+    const { apivalue } = div.dataset;
     // Extract data attributes from the div
     const fetchAndDisplayProducts = async () => {
-      const resp = await fetch('https://author-p34054-e124155.adobeaemcloud.com/content/aem-eds/product-sheet.hlx.json');
+      const resp = await fetch(apivalue);
       const jsono = await resp.json();
       createProductList(jsono.data);
     };
