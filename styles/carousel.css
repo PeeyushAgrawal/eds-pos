@@ -1,0 +1,350 @@
+/**
+ * Carousel styles for Adobe Experience Manager Edge Delivery Services
+ * Mobile-first, responsive, and accessible carousel implementation
+ * Uses CSS custom properties and modern layout techniques
+ */
+
+/* CSS Custom Properties */
+:root {
+  --carousel-gap: 1rem;
+  --carousel-visible-items: 1;
+  --carousel-total-items: 1;
+  --carousel-item-width: 100%;
+  --carousel-transition-duration: 0.3s;
+  --carousel-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Colors */
+  --carousel-nav-bg: rgba(0, 0, 0, 0.7);
+  --carousel-nav-color: white;
+  --carousel-nav-hover-bg: rgba(0, 0, 0, 0.9);
+  --carousel-indicator-bg: rgba(0, 0, 0, 0.3);
+  --carousel-indicator-active-bg: rgba(0, 0, 0, 0.8);
+  --carousel-focus-color: #0066cc;
+  
+  /* Spacing */
+  --carousel-nav-size: 3rem;
+  --carousel-indicator-size: 0.75rem;
+  --carousel-padding: 1rem;
+}
+
+/* Base carousel container */
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+/* Carousel track */
+.carousel-track {
+  display: flex;
+  width: calc(var(--carousel-total-items) * (100% / var(--carousel-visible-items)));
+  gap: var(--carousel-gap);
+  transition: transform var(--carousel-transition-duration) var(--carousel-transition-easing);
+  scroll-snap-type: x mandatory;
+}
+
+/* Carousel items */
+.carousel-item {
+  flex: 0 0 calc(var(--carousel-item-width) - (var(--carousel-gap) * (var(--carousel-visible-items) - 1) / var(--carousel-visible-items)));
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 200px;
+}
+
+/* Ensure images and content fit properly */
+.carousel-item img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+.carousel-item > * {
+  width: 100%;
+}
+
+/* Navigation buttons */
+.carousel-navigation {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.carousel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--carousel-nav-size);
+  height: var(--carousel-nav-size);
+  background: var(--carousel-nav-bg);
+  color: var(--carousel-nav-color);
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.carousel-btn:hover:not(:disabled) {
+  background: var(--carousel-nav-hover-bg);
+  transform: scale(1.1);
+}
+
+.carousel-btn:focus {
+  outline: 2px solid var(--carousel-focus-color);
+  outline-offset: 2px;
+}
+
+.carousel-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.carousel-btn-prev {
+  margin-left: var(--carousel-padding);
+}
+
+.carousel-btn-next {
+  margin-right: var(--carousel-padding);
+}
+
+/* Hide navigation on small screens if space is limited */
+@media (max-width: 480px) {
+  .carousel-btn {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
+  }
+  
+  .carousel-btn-prev {
+    margin-left: 0.5rem;
+  }
+  
+  .carousel-btn-next {
+    margin-right: 0.5rem;
+  }
+}
+
+/* Indicators */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+}
+
+/* Dot indicators */
+.carousel-indicator-dot {
+  width: var(--carousel-indicator-size);
+  height: var(--carousel-indicator-size);
+  border-radius: 50%;
+  border: none;
+  background: var(--carousel-indicator-bg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.carousel-indicator-dot:hover {
+  background: var(--carousel-indicator-active-bg);
+  transform: scale(1.2);
+}
+
+.carousel-indicator-dot:focus {
+  outline: 2px solid var(--carousel-focus-color);
+  outline-offset: 2px;
+}
+
+.carousel-indicator-dot.active,
+.carousel-indicator-dot[aria-selected="true"] {
+  background: var(--carousel-indicator-active-bg);
+  transform: scale(1.3);
+}
+
+/* Counter indicator */
+.carousel-counter {
+  font-size: 0.875rem;
+  color: var(--carousel-indicator-active-bg);
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 1rem;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Responsive breakpoints */
+@media (min-width: 768px) {
+  :root {
+    --carousel-gap: 1.5rem;
+    --carousel-padding: 1.5rem;
+  }
+  
+  .carousel-item {
+    min-height: 250px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --carousel-gap: 2rem;
+    --carousel-padding: 2rem;
+  }
+  
+  .carousel-item {
+    min-height: 300px;
+  }
+}
+
+/* Column-specific responsive behavior */
+.carousel.cols-2 {
+  --carousel-visible-items: 1;
+}
+
+.carousel.cols-3 {
+  --carousel-visible-items: 1;
+}
+
+.carousel.cols-4 {
+  --carousel-visible-items: 1;
+}
+
+@media (min-width: 768px) {
+  .carousel.cols-2 {
+    --carousel-visible-items: 2;
+  }
+  
+  .carousel.cols-3 {
+    --carousel-visible-items: 2;
+  }
+  
+  .carousel.cols-4 {
+    --carousel-visible-items: 2;
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel.cols-2 {
+    --carousel-visible-items: 2;
+  }
+  
+  .carousel.cols-3 {
+    --carousel-visible-items: 3;
+  }
+  
+  .carousel.cols-4 {
+    --carousel-visible-items: 4;
+  }
+}
+
+/* Accessibility improvements */
+.carousel-item[aria-hidden="true"] {
+  visibility: hidden;
+}
+
+.carousel-item[aria-current="true"] {
+  /* Optionally highlight the current slide */
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track {
+    transition: none;
+  }
+  
+  .carousel-btn {
+    transition: none;
+  }
+  
+  .carousel-indicator-dot {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .carousel-btn {
+    border: 2px solid currentColor;
+  }
+  
+  .carousel-indicator-dot {
+    border: 1px solid currentColor;
+  }
+}
+
+/* Focus management */
+.carousel-container:focus-within .carousel-btn {
+  opacity: 1;
+}
+
+/* Print styles */
+@media print {
+  .carousel-navigation,
+  .carousel-indicators {
+    display: none;
+  }
+  
+  .carousel-track {
+    display: block;
+  }
+  
+  .carousel-item {
+    display: block;
+    page-break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Loading state */
+.carousel-container:not(.carousel-initialized) {
+  opacity: 0.7;
+}
+
+.carousel-container.carousel-initialized {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+/* Error state */
+.carousel-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  background: #f5f5f5;
+  color: #666;
+  border-radius: 0.5rem;
+  font-style: italic;
+}
+
+/* Touch/swipe feedback */
+.carousel-track.dragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+/* Smooth scrolling fallback for browsers that support it */
+@supports (scroll-behavior: smooth) {
+  .carousel-track {
+    scroll-behavior: smooth;
+  }
+}

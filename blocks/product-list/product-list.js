@@ -1,3 +1,5 @@
+import { initCarousel } from '../../scripts/carousel.js';
+
 // Function to initialize the component and make the HTTP request
 async function initProductListComponents() {
   // Select all div elements with the class 'product-list-container'
@@ -5,6 +7,25 @@ async function initProductListComponents() {
 
   // Iterate over each div and perform the necessary operations
   divs.forEach((div) => {
+    function initializeCarousel(container) {
+      // Hard-coded test configuration
+      const carouselOptions = {
+        itemsPerView: {
+          mobile: 1,
+          desktop: 3,
+        },
+        navigation: true,
+        indicators: 'count',
+        itemSelector: ':scope > .product-list > .product-item',
+      };
+
+      // Find the product list container within the block
+      const productListContainer = container.querySelector('.product-list');
+      if (productListContainer && productListContainer.children.length > 0) {
+        initCarousel(productListContainer, carouselOptions);
+      }
+    }
+
     function createProductList(products) {
       let productListHTML = '';
       products.forEach((product) => {
@@ -19,6 +40,9 @@ async function initProductListComponents() {
                       `;
       });
       div.querySelector('.product-list').innerHTML += productListHTML;
+
+      // Initialize carousel after products are rendered
+      initializeCarousel(div);
     }
     const { apivalue } = div.dataset;
     // Extract data attributes from the div
