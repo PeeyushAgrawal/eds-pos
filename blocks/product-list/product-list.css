@@ -1,3 +1,5 @@
+@import url('../../styles/carousel.css');
+
 .product-list .dark p{
   background-color: var(--text-color);
   color: var(--background-color);
