@@ -49,7 +49,7 @@ export function readCarouselOptions(root) {
 
     // Check if this looks like a config row (key-value pairs)
     if (firstCell.textContent.toLowerCase().includes('config')
-        || firstCell.textContent.toLowerCase().includes('setting')) {
+      || firstCell.textContent.toLowerCase().includes('setting')) {
       // Parse config from second cell
       const configText = secondCell.textContent;
       const configLines = configText.split('\n').filter((line) => line.trim());
@@ -69,6 +69,8 @@ export function readCarouselOptions(root) {
                 options.indicators = value.toLowerCase();
               }
               break;
+            default:
+              break;
           }
         }
       });
@@ -79,6 +81,128 @@ export function readCarouselOptions(root) {
   }
 
   return options;
+}
+
+/**
+ * Utility function to debounce function calls
+ * @param {Function} func - Function to debounce
+ * @param {number} wait - Wait time in milliseconds
+ * @returns {Function} Debounced function
+ */
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+
+/**
+ * Gets current breakpoint based on window width
+ * @returns {string} Current breakpoint (mobile, tablet, desktop)
+ */
+function getBreakpoint() {
+  const width = window.innerWidth;
+  if (width >= 1024) return 'desktop';
+  if (width >= 768) return 'tablet';
+  return 'mobile';
+}
+
+/**
+ * Creates the carousel DOM structure
+ * @param {Element} rootElement - Root element
+ * @param {Array} carouselItems - Carousel items
+ * @param {Object} configuration - Configuration object
+ * @returns {Object} Carousel elements
+ */
+function createCarouselStructure(rootElement, carouselItems, configuration) {
+  // Create container
+  const containerElement = document.createElement('div');
+  containerElement.className = 'carousel-container';
+  containerElement.setAttribute('role', 'region');
+  containerElement.setAttribute('aria-label', 'Carousel');
+
+  // Create track
+  const trackElement = document.createElement('div');
+  trackElement.className = 'carousel-track';
+  trackElement.setAttribute('role', 'list');
+
+  // Move items to track
+  carouselItems.forEach((item, index) => {
+    item.className = `carousel-item ${item.className || ''}`;
+    item.setAttribute('role', 'listitem');
+    item.setAttribute('aria-label', `Slide ${index + 1} of ${carouselItems.length}`);
+    trackElement.appendChild(item);
+  });
+
+  containerElement.appendChild(trackElement);
+
+  // Create navigation
+  let previousButton;
+  let nextButton;
+  if (configuration.navigation) {
+    const nav = document.createElement('div');
+    nav.className = 'carousel-navigation';
+
+    previousButton = document.createElement('button');
+    previousButton.className = 'carousel-btn carousel-btn-prev';
+    previousButton.setAttribute('aria-label', 'Previous slide');
+    previousButton.innerHTML = '<span aria-hidden="true">‹</span>';
+
+    nextButton = document.createElement('button');
+    nextButton.className = 'carousel-btn carousel-btn-next';
+    nextButton.setAttribute('aria-label', 'Next slide');
+    nextButton.innerHTML = '<span aria-hidden="true">›</span>';
+
+    nav.appendChild(previousButton);
+    nav.appendChild(nextButton);
+    containerElement.appendChild(nav);
+  }
+
+  // Create indicators
+  let indicatorElements;
+  if (configuration.indicators !== 'none') {
+    indicatorElements = document.createElement('div');
+    indicatorElements.className = 'carousel-indicators';
+    indicatorElements.setAttribute('role', 'tablist');
+    indicatorElements.setAttribute('aria-label', 'Carousel slides');
+
+    if (configuration.indicators === 'dots') {
+      carouselItems.forEach((_, index) => {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-indicator-dot';
+        dot.setAttribute('role', 'tab');
+        dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
+        dot.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+        dot.dataset.index = index;
+        indicatorElements.appendChild(dot);
+      });
+    } else if (configuration.indicators === 'count') {
+      const counter = document.createElement('div');
+      counter.className = 'carousel-counter';
+      counter.setAttribute('aria-live', 'polite');
+      counter.setAttribute('aria-atomic', 'true');
+      indicatorElements.appendChild(counter);
+    }
+
+    containerElement.appendChild(indicatorElements);
+  }
+
+  // Replace original content
+  rootElement.innerHTML = '';
+  rootElement.appendChild(containerElement);
+
+  return {
+    container: containerElement,
+    track: trackElement,
+    prevBtn: previousButton,
+    nextBtn: nextButton,
+    indicators: indicatorElements,
+  };
 }
 
 /**
@@ -127,150 +251,16 @@ export function initCarousel(root, options = {}) {
   // Create carousel structure
   const carousel = createCarouselStructure(root, items, config);
   const {
-    container, track, prevBtn, nextBtn, indicators,
+    track,
+    prevBtn,
+    nextBtn,
+    indicators,
   } = carousel;
 
-  // Initialize carousel
-  setupCarousel();
-
-  function setupCarousel() {
-    // Add carousel classes
-    root.classList.add('carousel-initialized');
-
-    // Set up responsive behavior
-    updateCarouselLayout();
-
-    // Set up event listeners
-    setupEventListeners();
-
-    // Initialize position
-    updateCarousel(false);
-
-    // Start autoplay if enabled
-    if (config.autoplay) {
-      startAutoplay();
-    }
-  }
-
-  function createCarouselStructure(root, items, config) {
-    // Create container
-    const container = document.createElement('div');
-    container.className = 'carousel-container';
-    container.setAttribute('role', 'region');
-    container.setAttribute('aria-label', 'Carousel');
-
-    // Create track
-    const track = document.createElement('div');
-    track.className = 'carousel-track';
-    track.setAttribute('role', 'list');
-
-    // Move items to track
-    items.forEach((item, index) => {
-      item.className = `carousel-item ${item.className || ''}`;
-      item.setAttribute('role', 'listitem');
-      item.setAttribute('aria-label', `Slide ${index + 1} of ${items.length}`);
-      track.appendChild(item);
-    });
-
-    container.appendChild(track);
-
-    // Create navigation
-    let prevBtn; let
-      nextBtn;
-    if (config.navigation) {
-      const nav = document.createElement('div');
-      nav.className = 'carousel-navigation';
-
-      prevBtn = document.createElement('button');
-      prevBtn.className = 'carousel-btn carousel-btn-prev';
-      prevBtn.setAttribute('aria-label', 'Previous slide');
-      prevBtn.innerHTML = '<span aria-hidden="true">‹</span>';
-
-      nextBtn = document.createElement('button');
-      nextBtn.className = 'carousel-btn carousel-btn-next';
-      nextBtn.setAttribute('aria-label', 'Next slide');
-      nextBtn.innerHTML = '<span aria-hidden="true">›</span>';
-
-      nav.appendChild(prevBtn);
-      nav.appendChild(nextBtn);
-      container.appendChild(nav);
-    }
-
-    // Create indicators
-    let indicators;
-    if (config.indicators !== 'none') {
-      indicators = document.createElement('div');
-      indicators.className = 'carousel-indicators';
-      indicators.setAttribute('role', 'tablist');
-      indicators.setAttribute('aria-label', 'Carousel slides');
-
-      if (config.indicators === 'dots') {
-        items.forEach((_, index) => {
-          const dot = document.createElement('button');
-          dot.className = 'carousel-indicator-dot';
-          dot.setAttribute('role', 'tab');
-          dot.setAttribute('aria-label', `Go to slide ${index + 1}`);
-          dot.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
-          dot.dataset.index = index;
-          indicators.appendChild(dot);
-        });
-      } else if (config.indicators === 'count') {
-        const counter = document.createElement('div');
-        counter.className = 'carousel-counter';
-        counter.setAttribute('aria-live', 'polite');
-        counter.setAttribute('aria-atomic', 'true');
-        indicators.appendChild(counter);
-      }
-
-      container.appendChild(indicators);
-    }
-
-    // Replace original content
-    root.innerHTML = '';
-    root.appendChild(container);
-
-    return {
-      container, track, prevBtn, nextBtn, indicators,
-    };
-  }
-
-  function setupEventListeners() {
-    // Navigation buttons
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => goToPrevious());
-      nextBtn.addEventListener('click', () => goToNext());
-    }
-
-    // Indicator dots
-    if (indicators && config.indicators === 'dots') {
-      indicators.addEventListener('click', (e) => {
-        if (e.target.classList.contains('carousel-indicator-dot')) {
-          const index = parseInt(e.target.dataset.index, 10);
-          goToSlide(index);
-        }
-      });
-    }
-
-    // Keyboard navigation
-    root.addEventListener('keydown', handleKeydown);
-
-    // Touch/swipe support
-    track.addEventListener('touchstart', handleTouchStart, { passive: true });
-    track.addEventListener('touchend', handleTouchEnd, { passive: true });
-
-    // Mouse drag support
-    track.addEventListener('mousedown', handleMouseDown);
-
-    // Pause autoplay on hover/focus
-    if (config.autoplay) {
-      root.addEventListener('mouseenter', pauseAutoplay);
-      root.addEventListener('mouseleave', startAutoplay);
-      root.addEventListener('focusin', pauseAutoplay);
-      root.addEventListener('focusout', startAutoplay);
-    }
-
-    // Responsive updates
-    window.addEventListener('resize', debounce(updateCarouselLayout, 250));
+  // Helper functions
+  function getVisibleItemsCount() {
+    const breakpoint = getBreakpoint();
+    return config.visibleItems[breakpoint];
   }
 
   function updateCarouselLayout() {
@@ -284,77 +274,6 @@ export function initCarousel(root, options = {}) {
     // Update track width
     const itemWidth = 100 / visibleItems;
     track.style.setProperty('--carousel-item-width', `${itemWidth}%`);
-  }
-
-  function getBreakpoint() {
-    const width = window.innerWidth;
-    if (width >= 1024) return 'desktop';
-    if (width >= 768) return 'tablet';
-    return 'mobile';
-  }
-
-  function goToNext() {
-    if (isAnimating) return;
-
-    const maxIndex = items.length - getVisibleItemsCount();
-    let nextIndex = currentIndex + 1;
-
-    if (nextIndex > maxIndex) {
-      nextIndex = config.loop ? 0 : maxIndex;
-    }
-
-    goToSlide(nextIndex);
-  }
-
-  function goToPrevious() {
-    if (isAnimating) return;
-
-    const maxIndex = items.length - getVisibleItemsCount();
-    let prevIndex = currentIndex - 1;
-
-    if (prevIndex < 0) {
-      prevIndex = config.loop ? maxIndex : 0;
-    }
-
-    goToSlide(prevIndex);
-  }
-
-  function goToSlide(index, animate = true) {
-    if (isAnimating || index === currentIndex) return;
-
-    const maxIndex = items.length - getVisibleItemsCount();
-    const targetIndex = Math.max(0, Math.min(index, maxIndex));
-
-    currentIndex = targetIndex;
-    updateCarousel(animate);
-  }
-
-  function updateCarousel(animate = true) {
-    if (animate) {
-      isAnimating = true;
-      track.addEventListener('transitionend', () => {
-        isAnimating = false;
-      }, { once: true });
-    }
-
-    // Update transform
-    const visibleItems = getVisibleItemsCount();
-    const offset = -(currentIndex * (100 / visibleItems));
-    track.style.transform = `translateX(${offset}%)`;
-
-    // Update navigation state
-    updateNavigationState();
-
-    // Update indicators
-    updateIndicators();
-
-    // Update ARIA attributes
-    updateAriaAttributes();
-  }
-
-  function getVisibleItemsCount() {
-    const breakpoint = getBreakpoint();
-    return config.visibleItems[breakpoint];
   }
 
   function updateNavigationState() {
@@ -402,6 +321,65 @@ export function initCarousel(root, options = {}) {
     });
   }
 
+  function updateCarousel(animate = true) {
+    if (animate) {
+      isAnimating = true;
+      track.addEventListener('transitionend', () => {
+        isAnimating = false;
+      }, { once: true });
+    }
+
+    // Update transform
+    const visibleItems = getVisibleItemsCount();
+    const offset = -(currentIndex * (100 / visibleItems));
+    track.style.transform = `translateX(${offset}%)`;
+
+    // Update navigation state
+    updateNavigationState();
+
+    // Update indicators
+    updateIndicators();
+
+    // Update ARIA attributes
+    updateAriaAttributes();
+  }
+
+  function goToSlide(index, animate = true) {
+    if (isAnimating || index === currentIndex) return;
+
+    const maxIndex = items.length - getVisibleItemsCount();
+    const targetIndex = Math.max(0, Math.min(index, maxIndex));
+
+    currentIndex = targetIndex;
+    updateCarousel(animate);
+  }
+
+  function goToNext() {
+    if (isAnimating) return;
+
+    const maxIndex = items.length - getVisibleItemsCount();
+    let nextIndex = currentIndex + 1;
+
+    if (nextIndex > maxIndex) {
+      nextIndex = config.loop ? 0 : maxIndex;
+    }
+
+    goToSlide(nextIndex);
+  }
+
+  function goToPrevious() {
+    if (isAnimating) return;
+
+    const maxIndex = items.length - getVisibleItemsCount();
+    let prevIndex = currentIndex - 1;
+
+    if (prevIndex < 0) {
+      prevIndex = config.loop ? maxIndex : 0;
+    }
+
+    goToSlide(prevIndex);
+  }
+
   function handleKeydown(e) {
     if (!e.target.closest('.carousel-container')) return;
 
@@ -422,34 +400,13 @@ export function initCarousel(root, options = {}) {
         e.preventDefault();
         goToSlide(items.length - getVisibleItemsCount());
         break;
+      default:
+        break;
     }
   }
 
   function handleTouchStart(e) {
     touchStartX = e.touches[0].clientX;
-  }
-
-  function handleTouchEnd(e) {
-    touchEndX = e.changedTouches[0].clientX;
-    handleSwipe();
-  }
-
-  function handleMouseDown(e) {
-    e.preventDefault();
-    touchStartX = e.clientX;
-
-    const handleMouseMove = (e) => {
-      touchEndX = e.clientX;
-    };
-
-    const handleMouseUp = () => {
-      handleSwipe();
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
   }
 
   function handleSwipe() {
@@ -463,6 +420,29 @@ export function initCarousel(root, options = {}) {
         goToPrevious();
       }
     }
+  }
+
+  function handleTouchEnd(e) {
+    touchEndX = e.changedTouches[0].clientX;
+    handleSwipe();
+  }
+
+  function handleMouseDown(event) {
+    event.preventDefault();
+    touchStartX = event.clientX;
+
+    const handleMouseMove = (moveEvent) => {
+      touchEndX = moveEvent.clientX;
+    };
+
+    const handleMouseUp = () => {
+      handleSwipe();
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
   }
 
   function startAutoplay() {
@@ -480,17 +460,66 @@ export function initCarousel(root, options = {}) {
     }
   }
 
-  function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
+  function setupEventListeners() {
+    // Navigation buttons
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => goToPrevious());
+      nextBtn.addEventListener('click', () => goToNext());
+    }
+
+    // Indicator dots
+    if (indicators && config.indicators === 'dots') {
+      indicators.addEventListener('click', (e) => {
+        if (e.target.classList.contains('carousel-indicator-dot')) {
+          const index = parseInt(e.target.dataset.index, 10);
+          goToSlide(index);
+        }
+      });
+    }
+
+    // Keyboard navigation
+    root.addEventListener('keydown', handleKeydown);
+
+    // Touch/swipe support
+    track.addEventListener('touchstart', handleTouchStart, { passive: true });
+    track.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+    // Mouse drag support
+    track.addEventListener('mousedown', handleMouseDown);
+
+    // Pause autoplay on hover/focus
+    if (config.autoplay) {
+      root.addEventListener('mouseenter', pauseAutoplay);
+      root.addEventListener('mouseleave', startAutoplay);
+      root.addEventListener('focusin', pauseAutoplay);
+      root.addEventListener('focusout', startAutoplay);
+    }
+
+    // Responsive updates
+    window.addEventListener('resize', debounce(updateCarouselLayout, 250));
   }
+
+  function setupCarousel() {
+    // Add carousel classes
+    root.classList.add('carousel-initialized');
+
+    // Set up responsive behavior
+    updateCarouselLayout();
+
+    // Set up event listeners
+    setupEventListeners();
+
+    // Initialize position
+    updateCarousel(false);
+
+    // Start autoplay if enabled
+    if (config.autoplay) {
+      startAutoplay();
+    }
+  }
+
+  // Initialize carousel
+  setupCarousel();
 
   // Public API
   const api = {
