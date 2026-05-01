@@ -16,7 +16,7 @@ async function initProductListComponents() {
         },
         navigation: true,
         indicators: 'count',
-        itemSelector: ':scope > .product-list > .product-item',
+        itemSelector: '.product-item',
       };
 
       // Find the product list container within the block
