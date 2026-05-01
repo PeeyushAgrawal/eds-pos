@@ -38,7 +38,7 @@
   width: 100%;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgb(0 0 0 / 10%);
 }
 
 .banner-image img {
@@ -108,7 +108,7 @@
   background: transparent;
   color: var(--link-color);
   transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 10%);
 }
 
 .banner-cta:focus {
@@ -120,7 +120,7 @@
 .banner.overlay .banner-content {
   position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5));
+  background: linear-gradient(rgb(0 0 0 / 30%), rgb(0 0 0 / 50%));
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -150,7 +150,7 @@
 .banner.overlay .banner-text h3,
 .banner.overlay .banner-text p {
   color: var(--background-color);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 2px 4px rgb(0 0 0 / 50%);
 }
 
 /* Compact variant */
@@ -221,13 +221,13 @@
 }
 
 /* High contrast mode support */
-@media (prefers-contrast: high) {
+@media (prefers-contrast: more) {
   .banner-cta {
     border: 3px solid;
   }
 
   .banner.overlay .banner-text {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgb(0 0 0 / 80%);
     padding: 20px;
     border-radius: 8px;
   }

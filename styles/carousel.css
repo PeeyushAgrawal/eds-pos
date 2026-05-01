@@ -14,12 +14,12 @@
   --carousel-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
   
   /* Colors */
-  --carousel-nav-bg: rgba(0, 0, 0, 0.7);
+  --carousel-nav-bg: rgb(0 0 0 / 70%);
   --carousel-nav-color: white;
-  --carousel-nav-hover-bg: rgba(0, 0, 0, 0.9);
-  --carousel-indicator-bg: rgba(0, 0, 0, 0.3);
-  --carousel-indicator-active-bg: rgba(0, 0, 0, 0.8);
-  --carousel-focus-color: #0066cc;
+  --carousel-nav-hover-bg: rgb(0 0 0 / 90%);
+  --carousel-indicator-bg: rgb(0 0 0 / 30%);
+  --carousel-indicator-active-bg: rgb(0 0 0 / 80%);
+  --carousel-focus-color: #06c;
   
   /* Spacing */
   --carousel-nav-size: 3rem;
@@ -99,12 +99,6 @@
   pointer-events: auto;
   transition: all 0.2s ease;
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-.carousel-btn:hover:not(:disabled) {
-  background: var(--carousel-nav-hover-bg);
-  transform: scale(1.1);
 }
 
 .carousel-btn:focus {
@@ -117,6 +111,11 @@
   cursor: not-allowed;
 }
 
+.carousel-btn:hover:not(:disabled) {
+  background: var(--carousel-nav-hover-bg);
+  transform: scale(1.1);
+}
+
 .carousel-btn-prev {
   margin-left: var(--carousel-padding);
 }
@@ -126,7 +125,7 @@
 }
 
 /* Hide navigation on small screens if space is limited */
-@media (max-width: 480px) {
+@media (width <= 480px) {
   .carousel-btn {
     width: 2.5rem;
     height: 2.5rem;
@@ -186,14 +185,13 @@
   color: var(--carousel-indicator-active-bg);
   font-weight: 500;
   padding: 0.25rem 0.5rem;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgb(255 255 255 / 90%);
   border-radius: 1rem;
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 }
 
 /* Responsive breakpoints */
-@media (min-width: 768px) {
+@media (width >= 768px) {
   :root {
     --carousel-gap: 1.5rem;
     --carousel-padding: 1.5rem;
@@ -204,7 +202,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   :root {
     --carousel-gap: 2rem;
     --carousel-padding: 2rem;
@@ -228,7 +226,7 @@
   --carousel-visible-items: 1;
 }
 
-@media (min-width: 768px) {
+@media (width >= 768px) {
   .carousel.cols-2 {
     --carousel-visible-items: 2;
   }
@@ -242,7 +240,7 @@
   }
 }
 
-@media (min-width: 1024px) {
+@media (width >= 1024px) {
   .carousel.cols-2 {
     --carousel-visible-items: 2;
   }
@@ -281,13 +279,13 @@
 }
 
 /* High contrast mode support */
-@media (prefers-contrast: high) {
+@media (prefers-contrast: more) {
   .carousel-btn {
-    border: 2px solid currentColor;
+    border: 2px solid currentcolor;
   }
   
   .carousel-indicator-dot {
-    border: 1px solid currentColor;
+    border: 1px solid currentcolor;
   }
 }
 
@@ -309,7 +307,7 @@
   
   .carousel-item {
     display: block;
-    page-break-inside: avoid;
+    break-inside: avoid;
     margin-bottom: 1rem;
   }
 }
