@@ -214,7 +214,7 @@ function createCarouselStructure(rootElement, carouselItems, configuration) {
 export function initCarousel(root, options = {}) {
   // Validate root element
   if (!root || !(root instanceof Element)) {
-    console.error('Carousel: Invalid root element provided');
+    // console.error('Carousel: Invalid root element provided');
     return null;
   }
 
@@ -237,7 +237,7 @@ export function initCarousel(root, options = {}) {
   const items = Array.from(root.querySelectorAll(config.itemSelector));
 
   if (items.length === 0) {
-    console.warn('Carousel: No items found with selector:', config.itemSelector);
+    // console.warn('Carousel: No items found with selector:', config.itemSelector);
     return null;
   }
 
