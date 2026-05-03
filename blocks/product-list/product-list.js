@@ -10,18 +10,22 @@ async function initProductListComponents() {
     function initializeCarousel(container) {
       // Hard-coded test configuration
       const carouselOptions = {
-        itemsPerView: {
+        visibleItems: {
           mobile: 1,
+          tablet: 2,
           desktop: 3,
         },
         navigation: true,
         indicators: 'count',
         itemSelector: '.product-item',
+        loop: true,
       };
 
       // Find the product list container within the block
       const productListContainer = container.querySelector('.product-list');
       if (productListContainer && productListContainer.children.length > 0) {
+        // Add carousel class to enable carousel styling
+        productListContainer.classList.add('carousel', 'cols-3');
         initCarousel(productListContainer, carouselOptions);
       }
     }

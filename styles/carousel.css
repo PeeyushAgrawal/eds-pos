@@ -48,14 +48,16 @@
   gap: var(--carousel-gap);
   transition: transform var(--carousel-transition-duration) var(--carousel-transition-easing);
   scroll-snap-type: x mandatory;
+  will-change: transform;
 }
 
 /* Carousel items */
 .carousel-item {
-  flex: 0 0 calc(var(--carousel-item-width) - (var(--carousel-gap) * (var(--carousel-visible-items) - 1) / var(--carousel-visible-items)));
+  flex: 0 0 calc((100% - (var(--carousel-gap) * (var(--carousel-visible-items) - 1))) / var(--carousel-visible-items));
   scroll-snap-align: start;
   scroll-snap-stop: always;
   min-height: 200px;
+  box-sizing: border-box;
 }
 
 /* Ensure images and content fit properly */
@@ -236,7 +238,7 @@
   }
   
   .carousel.cols-4 {
-    --carousel-visible-items: 2;
+    --carousel-visible-items: 3;
   }
 }
 
@@ -252,6 +254,24 @@
   .carousel.cols-4 {
     --carousel-visible-items: 4;
   }
+}
+
+/* Ensure proper carousel initialization */
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.carousel .product-list {
+  display: block;
+  width: 100%;
+}
+
+/* Override product-list flex layout when carousel is active */
+.carousel .product-list {
+  display: block !important;
+  flex-wrap: nowrap !important;
 }
 
 /* Accessibility improvements */
@@ -322,6 +342,28 @@
   transition: opacity 0.3s ease;
 }
 
+/* Fix for product-list specific styling */
+.product-list.carousel .product-item {
+  flex: 0 0 calc((100% - (var(--carousel-gap) * (var(--carousel-visible-items) - 1))) / var(--carousel-visible-items));
+  min-width: auto;
+  max-width: none;
+}
+
+/* Ensure carousel works with product-list layout */
+.product-list.carousel {
+  display: block;
+}
+
+.product-list.carousel .carousel-track {
+  display: flex;
+  align-items: stretch;
+}
+
+.product-list.carousel .carousel-item {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Error state */
 .carousel-error {
   display: flex;
@@ -345,4 +387,29 @@
   .carousel-track {
     scroll-behavior: smooth;
   }
+}
+
+/* Performance optimizations */
+.carousel-track {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Fix for Safari and iOS */
+.carousel-container {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+/* Ensure proper stacking context */
+.carousel {
+  z-index: 1;
+}
+
+.carousel-navigation {
+  z-index: 10;
+}
+
+.carousel-indicators {
+  z-index: 5;
 }
