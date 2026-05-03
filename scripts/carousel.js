@@ -310,7 +310,9 @@ export function initCarousel(root, options = {}) {
     } else if (config.indicators === 'count') {
       const counter = indicators.querySelector('.carousel-counter');
       if (counter) {
-        counter.textContent = `${currentIndex + 1} of ${items.length}`;
+        const visibleItems = getVisibleItemsCount();
+        const currentVisibleEnd = Math.min(currentIndex + visibleItems, items.length);
+        counter.textContent = `${currentVisibleEnd} of ${items.length}`;
       }
     }
   }
