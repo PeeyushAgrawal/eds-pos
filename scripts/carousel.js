@@ -15,7 +15,7 @@ export function readCarouselOptions(root) {
     visibleItems: {
       mobile: 1,
       tablet: 1,
-      desktop: 1,
+      desktop: 2,
     },
     indicators: 'none', // 'dots', 'count', or 'none'
     navigation: true,
