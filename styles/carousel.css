@@ -40,6 +40,7 @@
   display: flex;
   align-items: stretch;
   gap: var(--carousel-gap);
+  width: 100%;
   transition: transform var(--carousel-transition-duration) var(--carousel-transition-easing);
   will-change: transform;
   transform: translateZ(0);

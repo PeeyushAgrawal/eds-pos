@@ -271,14 +271,16 @@ export function initCarousel(root, options = {}) {
     root.style.setProperty('--carousel-visible-items', visibleItems);
     root.style.setProperty('--carousel-total-items', items.length);
 
-    // Update track width - ensure proper calculation
-    const trackWidth = (items.length / visibleItems) * 100;
-    track.style.width = `${trackWidth}%`;
+    // Keep the track anchored to the viewport width; flex overflow provides the slide area.
+    track.style.width = '';
 
     // Set item flex properties
     items.forEach((item) => {
       item.style.flex = `0 0 calc((100% - (var(--carousel-gap) * (${visibleItems} - 1))) / ${visibleItems})`;
     });
+
+    const maxIndex = Math.max(0, items.length - visibleItems);
+    currentIndex = Math.min(currentIndex, maxIndex);
   }
 
   function updateNavigationState() {
@@ -334,14 +336,11 @@ export function initCarousel(root, options = {}) {
       }, { once: true });
     }
 
-    // Update transform with proper calculation
-    const visibleItems = getVisibleItemsCount();
-    const totalItems = items.length;
-    const trackWidth = (totalItems / visibleItems) * 100;
-    const slideWidth = trackWidth / totalItems;
-    const offset = -(currentIndex * slideWidth);
+    // Move to the actual item offset so CSS gaps stay in sync with slide movement.
+    const targetItem = items[currentIndex];
+    const offset = targetItem ? targetItem.offsetLeft : 0;
 
-    track.style.transform = `translateX(${offset}%)`;
+    track.style.transform = `translateX(${-offset}px)`;
 
     // Update navigation state
     updateNavigationState();
@@ -352,6 +351,11 @@ export function initCarousel(root, options = {}) {
     // Update ARIA attributes
     updateAriaAttributes();
   }
+
+  const handleResize = debounce(() => {
+    updateCarouselLayout();
+    updateCarousel(false);
+  }, 250);
 
   function goToSlide(index, animate = true) {
     if (isAnimating || index === currentIndex) return;
@@ -507,7 +511,7 @@ export function initCarousel(root, options = {}) {
     }
 
     // Responsive updates
-    window.addEventListener('resize', debounce(updateCarouselLayout, 250));
+    window.addEventListener('resize', handleResize);
   }
 
   function setupCarousel() {
@@ -541,7 +545,7 @@ export function initCarousel(root, options = {}) {
     getTotalItems: () => items.length,
     destroy() {
       pauseAutoplay();
-      window.removeEventListener('resize', updateCarouselLayout);
+      window.removeEventListener('resize', handleResize);
       root.classList.remove('carousel-initialized');
     },
   };
