@@ -53,20 +53,20 @@
   backface-visibility: hidden;
   align-items: stretch;
   box-sizing: border-box;
+  gap: var(--carousel-gap);
 }
 
 /* Carousel items */
 .carousel-item {
-  flex: 0 0 calc(100% / var(--carousel-visible-items));
+  flex: 0 0 calc((100% - (var(--carousel-gap) * (var(--carousel-visible-items) - 1))) / var(--carousel-visible-items));
   scroll-snap-align: start;
   scroll-snap-stop: always;
   min-height: 200px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: calc(100% / var(--carousel-visible-items));
-  max-width: calc(100% / var(--carousel-visible-items));
-  padding-right: var(--carousel-gap);
+  width: calc((100% - (var(--carousel-gap) * (var(--carousel-visible-items) - 1))) / var(--carousel-visible-items));
+  max-width: calc((100% - (var(--carousel-gap) * (var(--carousel-visible-items) - 1))) / var(--carousel-visible-items));
 }
 
 /* Ensure images and content fit properly */
