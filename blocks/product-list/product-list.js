@@ -13,7 +13,7 @@ async function initProductListComponents() {
         visibleItems: {
           mobile: 1,
           tablet: 2,
-          desktop: 3,
+          desktop: 4,
         },
         navigation: true,
         indicators: 'count',
