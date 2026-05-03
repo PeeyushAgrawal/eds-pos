@@ -33,7 +33,6 @@
 .product-list.carousel {
   display: block;
   flex-wrap: nowrap;
-  gap: 0;
   overflow: hidden;
   width: 100%;
 }
@@ -46,6 +45,11 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  margin: 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 }
 
 .product-item a {
