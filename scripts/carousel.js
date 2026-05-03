@@ -368,7 +368,7 @@ export function initCarousel(root, options = {}) {
 
     const visibleItems = getVisibleItemsCount();
     const maxIndex = items.length - visibleItems;
-    let nextIndex = currentIndex + visibleItems;
+    let nextIndex = currentIndex + 1; // Slide by 1 item instead of visibleItems
 
     if (nextIndex > maxIndex) {
       nextIndex = config.loop ? 0 : maxIndex;
@@ -382,7 +382,7 @@ export function initCarousel(root, options = {}) {
 
     const visibleItems = getVisibleItemsCount();
     const maxIndex = items.length - visibleItems;
-    let prevIndex = currentIndex - visibleItems;
+    let prevIndex = currentIndex - 1; // Slide by 1 item instead of visibleItems
 
     if (prevIndex < 0) {
       prevIndex = config.loop ? maxIndex : 0;
