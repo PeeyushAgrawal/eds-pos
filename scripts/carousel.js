@@ -366,8 +366,9 @@ export function initCarousel(root, options = {}) {
   function goToNext() {
     if (isAnimating) return;
 
-    const maxIndex = items.length - getVisibleItemsCount();
-    let nextIndex = currentIndex + 1;
+    const visibleItems = getVisibleItemsCount();
+    const maxIndex = items.length - visibleItems;
+    let nextIndex = currentIndex + visibleItems;
 
     if (nextIndex > maxIndex) {
       nextIndex = config.loop ? 0 : maxIndex;
@@ -379,8 +380,9 @@ export function initCarousel(root, options = {}) {
   function goToPrevious() {
     if (isAnimating) return;
 
-    const maxIndex = items.length - getVisibleItemsCount();
-    let prevIndex = currentIndex - 1;
+    const visibleItems = getVisibleItemsCount();
+    const maxIndex = items.length - visibleItems;
+    let prevIndex = currentIndex - visibleItems;
 
     if (prevIndex < 0) {
       prevIndex = config.loop ? maxIndex : 0;
