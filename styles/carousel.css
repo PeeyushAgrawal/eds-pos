@@ -4,7 +4,6 @@
  * Uses CSS custom properties and modern layout techniques
  */
 
-/* CSS Custom Properties */
 :root {
   --carousel-gap: 1rem;
   --carousel-visible-items: 1;
@@ -12,22 +11,17 @@
   --carousel-item-width: 100%;
   --carousel-transition-duration: 0.3s;
   --carousel-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
-  
-  /* Colors */
-  --carousel-nav-bg: rgb(0 0 0 / 70%);
-  --carousel-nav-color: white;
-  --carousel-nav-hover-bg: rgb(0 0 0 / 90%);
+  --carousel-nav-bg: rgb(0 0 0 / 55%);
+  --carousel-nav-color: #fff;
+  --carousel-nav-hover-bg: rgb(0 0 0 / 75%);
   --carousel-indicator-bg: rgb(0 0 0 / 30%);
   --carousel-indicator-active-bg: rgb(0 0 0 / 80%);
   --carousel-focus-color: #06c;
-  
-  /* Spacing */
   --carousel-nav-size: 3rem;
   --carousel-indicator-size: 0.75rem;
   --carousel-padding: 1rem;
 }
 
-/* Base carousel container - ordered by specificity */
 .carousel {
   position: relative;
   width: 100%;
@@ -39,46 +33,41 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  border-radius: 0.5rem;
   transform: translateZ(0);
 }
 
 .carousel-track {
   display: flex;
-  width: calc(var(--carousel-total-items) * (100% / var(--carousel-visible-items)));
+  align-items: stretch;
+  gap: var(--carousel-gap);
   transition: transform var(--carousel-transition-duration) var(--carousel-transition-easing);
-  scroll-snap-type: x mandatory;
   will-change: transform;
   transform: translateZ(0);
   backface-visibility: hidden;
-  align-items: stretch;
   box-sizing: border-box;
+  scroll-snap-type: x mandatory;
 }
 
-/* Carousel items */
 .carousel-item {
-  flex: 0 0 calc(100% / var(--carousel-visible-items));
+  flex: 0 0 calc((100% - (var(--carousel-gap) * (var(--carousel-visible-items) - 1))) / var(--carousel-visible-items));
   scroll-snap-align: start;
   scroll-snap-stop: always;
   min-height: 200px;
+  min-width: 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: calc(100% / var(--carousel-visible-items));
-  max-width: calc(100% / var(--carousel-visible-items));
-  padding-right: var(--carousel-gap);
 }
 
-/* Ensure images and content fit properly */
+.carousel-item > * {
+  width: 100%;
+}
+
 .carousel-item img {
   width: 100%;
   height: auto;
   object-fit: cover;
   border-radius: 0.25rem;
-}
-
-.carousel-item > * {
-  width: 100%;
 }
 
 .carousel-navigation {
@@ -134,18 +123,17 @@
   margin-right: var(--carousel-padding);
 }
 
-/* Hide navigation on small screens if space is limited */
 @media (width <= 480px) {
   .carousel-btn {
     width: 2.5rem;
     height: 2.5rem;
     font-size: 1.25rem;
   }
-  
+
   .carousel-btn-prev {
     margin-left: 0.5rem;
   }
-  
+
   .carousel-btn-next {
     margin-right: 0.5rem;
   }
@@ -161,7 +149,6 @@
   z-index: 5;
 }
 
-/* Dot indicators */
 .carousel-indicator-dot {
   width: var(--carousel-indicator-size);
   height: var(--carousel-indicator-size);
@@ -184,12 +171,11 @@
 }
 
 .carousel-indicator-dot.active,
-.carousel-indicator-dot[aria-selected="true"] {
+.carousel-indicator-dot[aria-selected='true'] {
   background: var(--carousel-indicator-active-bg);
   transform: scale(1.3);
 }
 
-/* Counter indicator */
 .carousel-counter {
   font-size: 0.875rem;
   color: var(--carousel-indicator-active-bg);
@@ -200,13 +186,12 @@
   backdrop-filter: blur(4px);
 }
 
-/* Responsive breakpoints */
 @media (width >= 768px) {
   :root {
     --carousel-gap: 1.5rem;
     --carousel-padding: 1.5rem;
   }
-  
+
   .carousel-item {
     min-height: 250px;
   }
@@ -217,13 +202,12 @@
     --carousel-gap: 2rem;
     --carousel-padding: 2rem;
   }
-  
+
   .carousel-item {
     min-height: 300px;
   }
 }
 
-/* Column-specific responsive behavior */
 .carousel.cols-2 {
   --carousel-visible-items: 1;
 }
@@ -240,11 +224,11 @@
   .carousel.cols-2 {
     --carousel-visible-items: 2;
   }
-  
+
   .carousel.cols-3 {
     --carousel-visible-items: 2;
   }
-  
+
   .carousel.cols-4 {
     --carousel-visible-items: 3;
   }
@@ -254,74 +238,60 @@
   .carousel.cols-2 {
     --carousel-visible-items: 2;
   }
-  
+
   .carousel.cols-3 {
     --carousel-visible-items: 3;
   }
-  
+
   .carousel.cols-4 {
     --carousel-visible-items: 4;
   }
 }
 
-/* Override product-list flex layout when carousel is active */
 .carousel .product-list {
   display: block !important;
   flex-wrap: nowrap !important;
   width: 100%;
 }
 
-/* Accessibility improvements */
-.carousel-item[aria-hidden="true"] {
+.carousel-item[aria-hidden='true'] {
   visibility: hidden;
 }
 
-.carousel-item[aria-current="true"] {
-  /* Optionally highlight the current slide */
-}
-
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
-  .carousel-track {
-    transition: none;
-  }
-  
-  .carousel-btn {
-    transition: none;
-  }
-  
+  .carousel-track,
+  .carousel-btn,
   .carousel-indicator-dot {
     transition: none;
   }
 }
 
-/* High contrast mode support */
 @media (prefers-contrast: more) {
   .carousel-btn {
     border: 2px solid currentcolor;
   }
-  
+
   .carousel-indicator-dot {
     border: 1px solid currentcolor;
   }
 }
 
-/* Focus management */
 .carousel-container:focus-within .carousel-btn {
   opacity: 1;
 }
 
-/* Print styles */
 @media print {
   .carousel-navigation,
   .carousel-indicators {
     display: none;
   }
-  
+
   .carousel-track {
     display: block;
+    width: 100% !important;
+    transform: none !important;
   }
-  
+
   .carousel-item {
     display: block;
     break-inside: avoid;
@@ -329,7 +299,6 @@
   }
 }
 
-/* Specific carousel container states - ordered by specificity */
 .carousel-container:not(.carousel-initialized) {
   opacity: 0.7;
 }
@@ -339,9 +308,9 @@
   transition: opacity 0.3s ease;
 }
 
-/* Product-list specific carousel styles - ordered by specificity */
 .product-list.carousel {
   display: block;
+  width: 100%;
 }
 
 .product-list.carousel .carousel-track {
@@ -352,15 +321,16 @@
 .product-list.carousel .carousel-item {
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .product-list.carousel .product-item {
-  flex: 0 0 calc((100% - (var(--carousel-gap) * (var(--carousel-visible-items) - 1))) / var(--carousel-visible-items));
-  min-width: auto;
+  width: 100%;
+  min-width: 0;
   max-width: none;
+  height: 100%;
 }
 
-/* Error state */
 .carousel-error {
   display: flex;
   align-items: center;
@@ -372,13 +342,11 @@
   font-style: italic;
 }
 
-/* Touch/swipe feedback */
 .carousel-track.dragging {
   cursor: grabbing;
   user-select: none;
 }
 
-/* Smooth scrolling fallback for browsers that support it */
 @supports (scroll-behavior: smooth) {
   .carousel-track {
     scroll-behavior: smooth;
