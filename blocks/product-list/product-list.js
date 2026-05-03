@@ -39,6 +39,7 @@ async function initProductListComponents() {
                               <img src="${'https://placehold.jp/400x400.png'}" alt="${product.altText}">
                                <h2>${product.name}</h2>
                               <div class="product-description">${product.description}</div>
+                              <a href="${`plp?product=${product.name}`}" class="product-link">View Details</a>
                               </a>
                           </div>
                       `;
