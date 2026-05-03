@@ -35,6 +35,7 @@
   flex-wrap: nowrap;
   gap: 0;
   overflow: hidden;
+  width: 100%;
 }
 
 .product-list.carousel .product-item {
@@ -42,6 +43,9 @@
   min-width: auto;
   max-width: none;
   width: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .product-item a {
