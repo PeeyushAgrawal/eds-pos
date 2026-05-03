@@ -27,11 +27,12 @@
   --carousel-padding: 1rem;
 }
 
-/* Base carousel container */
+/* Base carousel container - ordered by specificity */
 .carousel {
   position: relative;
   width: 100%;
   overflow: hidden;
+  z-index: 1;
 }
 
 .carousel-container {
@@ -39,23 +40,27 @@
   width: 100%;
   overflow: hidden;
   border-radius: 0.5rem;
+  transform: translateZ(0);
 }
 
-/* Carousel track */
 .carousel-track {
   display: flex;
   width: calc(var(--carousel-total-items) * (100% / var(--carousel-visible-items)));
   gap: var(--carousel-gap);
   transition: transform var(--carousel-transition-duration) var(--carousel-transition-easing);
   scroll-snap-type: x mandatory;
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Carousel items */
 .carousel-item {
-  flex: 0 0 calc(var(--carousel-item-width) - (var(--carousel-gap) * (var(--carousel-visible-items) - 1) / var(--carousel-visible-items)));
+  flex: 0 0 calc((100% - (var(--carousel-gap) * (var(--carousel-visible-items) - 1))) / var(--carousel-visible-items));
   scroll-snap-align: start;
   scroll-snap-stop: always;
   min-height: 200px;
+  box-sizing: border-box;
 }
 
 /* Ensure images and content fit properly */
@@ -70,7 +75,6 @@
   width: 100%;
 }
 
-/* Navigation buttons */
 .carousel-navigation {
   position: absolute;
   top: 50%;
@@ -80,7 +84,7 @@
   display: flex;
   justify-content: space-between;
   pointer-events: none;
-  z-index: 2;
+  z-index: 10;
 }
 
 .carousel-btn {
@@ -141,7 +145,6 @@
   }
 }
 
-/* Indicators */
 .carousel-indicators {
   display: flex;
   justify-content: center;
@@ -149,6 +152,7 @@
   gap: 0.5rem;
   margin-top: 1rem;
   padding: 0.5rem;
+  z-index: 5;
 }
 
 /* Dot indicators */
@@ -236,7 +240,7 @@
   }
   
   .carousel.cols-4 {
-    --carousel-visible-items: 2;
+    --carousel-visible-items: 3;
   }
 }
 
@@ -252,6 +256,13 @@
   .carousel.cols-4 {
     --carousel-visible-items: 4;
   }
+}
+
+/* Override product-list flex layout when carousel is active */
+.carousel .product-list {
+  display: block !important;
+  flex-wrap: nowrap !important;
+  width: 100%;
 }
 
 /* Accessibility improvements */
@@ -312,7 +323,7 @@
   }
 }
 
-/* Loading state */
+/* Specific carousel container states - ordered by specificity */
 .carousel-container:not(.carousel-initialized) {
   opacity: 0.7;
 }
@@ -320,6 +331,27 @@
 .carousel-container.carousel-initialized {
   opacity: 1;
   transition: opacity 0.3s ease;
+}
+
+/* Product-list specific carousel styles - ordered by specificity */
+.product-list.carousel {
+  display: block;
+}
+
+.product-list.carousel .carousel-track {
+  display: flex;
+  align-items: stretch;
+}
+
+.product-list.carousel .carousel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-list.carousel .product-item {
+  flex: 0 0 calc((100% - (var(--carousel-gap) * (var(--carousel-visible-items) - 1))) / var(--carousel-visible-items));
+  min-width: auto;
+  max-width: none;
 }
 
 /* Error state */

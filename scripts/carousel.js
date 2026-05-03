@@ -271,9 +271,14 @@ export function initCarousel(root, options = {}) {
     root.style.setProperty('--carousel-visible-items', visibleItems);
     root.style.setProperty('--carousel-total-items', items.length);
 
-    // Update track width
-    const itemWidth = 100 / visibleItems;
-    track.style.setProperty('--carousel-item-width', `${itemWidth}%`);
+    // Update track width - ensure proper calculation
+    const trackWidth = (items.length / visibleItems) * 100;
+    track.style.width = `${trackWidth}%`;
+
+    // Set item flex properties
+    items.forEach((item) => {
+      item.style.flex = `0 0 calc((100% - (var(--carousel-gap) * (${visibleItems} - 1))) / ${visibleItems})`;
+    });
   }
 
   function updateNavigationState() {
@@ -329,9 +334,13 @@ export function initCarousel(root, options = {}) {
       }, { once: true });
     }
 
-    // Update transform
+    // Update transform with proper calculation
     const visibleItems = getVisibleItemsCount();
-    const offset = -(currentIndex * (100 / visibleItems));
+    const totalItems = items.length;
+    const trackWidth = (totalItems / visibleItems) * 100;
+    const slideWidth = trackWidth / totalItems;
+    const offset = -(currentIndex * slideWidth);
+
     track.style.transform = `translateX(${offset}%)`;
 
     // Update navigation state
