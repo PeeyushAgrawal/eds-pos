@@ -30,6 +30,8 @@
 }
 
 .product-list.carousel {
+  --carousel-gap: 16px;
+
   display: block;
   flex-wrap: nowrap;
   overflow: hidden;
